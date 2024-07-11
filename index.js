@@ -17,6 +17,10 @@ app.use(cors()); //to avoid api blocking
 app.use('/api', UserRoutes);
 app.use('/api',restaurantRoutes );
 
+app.use('/', (req, res)=>{
+    res.json({message:'Welcome to Zomato backend API'})
+})
+
 app.listen(3005, ()=>{
     console.log('server is running at localhost:3005');
 })
