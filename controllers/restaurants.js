@@ -28,9 +28,10 @@ exports.getRestaurants = async(req, res) =>{
 
 
 exports.getSingleRestaurant = async(req, res) =>{
-  const {restaurantId} = req.params.restaurantId;
+ 
   try {
-      const data = await restaurantsDatabase.findOne({restaurantId})
+    const restaurantId = req.params.restaurantId;
+      const data = await restaurantsDatabase.findById(restaurantId)
       if(data){
         res.json({message:'done!', data:data})
       }else{
@@ -44,9 +45,10 @@ exports.getSingleRestaurant = async(req, res) =>{
 
 exports.UpdateRestaurant = async(req, res) =>{
   const data = req.body;
-  const {restaurantId} = req.params.restaurantId;
+  const restaurantId = req.params.restaurantId;
+  console.log();
   try {
-    const updateRestaurant = await restaurantsDatabase.findByIdAndUpdate(restaurantId, data, {new:true})
+    const updateRestaurant = await restaurantsDatabase.findByIdAndUpdate(req.params.restaurantId, data, {new:true})
 
     if(updateRestaurant){
       res.json({message:'updated', data:updateRestaurant})
@@ -60,15 +62,14 @@ exports.UpdateRestaurant = async(req, res) =>{
 
 
 exports.deleteRestaurant = async(req, res) =>{
-  const data = req.body;
-  const {restaurantId} = req.params.restaurantId;
+  const restaurantId = req.params.restaurantId;
   const password = req.params.password;
   const username = req.params.username;
   try {
     if(username === "bhaskar" && password === "1234567890"){
-      const deleteRestaurant = await restaurantsDatabase.findByIdAndDelete(restaurantId, data, {new:true})
+      const deleteRestaurant = await restaurantsDatabase.findByIdAndDelete(restaurantId)
           if(deleteRestaurant){
-            res.json({message:'ideleted successfully', dataDeleted:deleteRestaurant})
+            res.json({message:'deleted successfully', dataDeleted:deleteRestaurant})
           }else{
             res.json({error:'Id is not found'})
           }
