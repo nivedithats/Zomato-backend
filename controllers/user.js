@@ -10,6 +10,7 @@ exports.registerUser = async (req, res) => {
     console.log(req.body);
     const { username, email, password, phonenumber} = req.body;
     console.log(password);
+
     if(!validator.isEmail(email)){
       return res.json({message:"invalid email formate"})
     }
@@ -54,7 +55,7 @@ exports.login = async (req, res) =>{
         return res.status(400).json({message:"invalid credentials"})
        }
 
-       const token = jwt.sign({id:existuser._id, email:existuser.email}, secretKey, {expiresIn:'1h'} )
+       const token = jwt.sign({id:existuser._id, email:existuser.email, username:existuser.username}, secretKey, {expiresIn:'1h'} )
         res.status(200).json({message:"login success", data:existuser, token:token})
     } catch (error) {
       console.log(error);

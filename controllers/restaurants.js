@@ -13,16 +13,16 @@ exports.UploadRestaurant = async (req, res) =>{
 
 
 exports.getRestaurants = async(req, res) =>{
-    // try {
-    //     const allData = await restaurantsDatabase.find(); ///to will gets all data in this database
-    //   if(allData.length>0){
-    //     res.json({length:allData.length, data:allData})
-    //   }else{
-    //     res.json({message:'Thanks for using our API., but here no data available please check later'});
-    //   }
-    // } catch (error) {
-    //     res.json({message:'Somthing went wrong'})
-    // }
+    try {
+        const allData = await restaurantsDatabase.find(); ///to will gets all data in this database
+      if(allData.length>0){
+        res.json({length:allData.length, data:allData})
+      }else{
+        res.json({message:'Thanks for using our API., but here no data available please check later'});
+      }
+    } catch (error) {
+        res.json({message:'Somthing went wrong'})
+    }
     res.json({data:req.data})
 }
 
